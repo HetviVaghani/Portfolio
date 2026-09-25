@@ -3,688 +3,608 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hetvi | Artist Portfolio</title>
-<meta name="description" content="Hetvi — artist specializing in portrait sketches, acrylic & watercolour paintings, god & goddess art and custom texture art.">
+<title>Hetvi — Visual Artist &amp; Portrait Studio</title>
+<meta name="description" content="Hetvi is a visual artist working across portrait sketches, acrylics, watercolours, god &amp; goddess paintings and texture art — every piece made to order.">
+<meta name="theme-color" content="#16120f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2316120f'/%3E%3Cpath d='M28 70 Q36 28 72 26' stroke='%23e0522b' stroke-width='8' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='72' cy='26' r='7' fill='%23f2a93b'/%3E%3C/svg%3E">
 
-<!-- Google Fonts: Playfair Display (elegant headings) + Jost (clean simple body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300;400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23241b1f'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23e3cca7' stroke-width='5'/%3E%3Ccircle cx='50' cy='50' r='5' fill='%23e3cca7'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="loading">
 
-<!-- ===== NAVBAR ===== -->
-<header class="navbar" id="navbar">
-  <div class="nav-inner">
-    <a href="#home" class="logo">Hetvi<span class="logo-dot">.</span></a>
+<div class="grain" aria-hidden="true"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
-    <nav class="nav-links" id="navLinks">
-      <a href="#home" class="nav-link">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#portfolio" class="nav-link">Portfolio</a>
-      <a href="#commissions" class="nav-link">Commissions</a>
-      <a href="#contact" class="nav-link">Contact</a>
-      <span class="nav-indicator" id="navIndicator"></span>
+<div class="preloader" id="preloader">
+  <svg class="preloader-stroke" viewBox="0 0 600 120" aria-hidden="true">
+    <path d="M10 80 C 90 20, 170 110, 250 60 S 420 20, 590 70" />
+  </svg>
+  <span class="preloader-name">Hetvi</span>
+  <span class="preloader-count" id="preloaderCount">0</span>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#home" class="logo">Hetvi<span>.</span></a>
+
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li class="has-dropdown">
+          <a href="#craft" class="nav-link">Portfolio</a>
+          <ul class="dropdown">
+            <li><a href="#portrait-sketches"><b>01</b> Portrait Sketches</a></li>
+            <li><a href="#acrylic-paintings"><b>02</b> Acrylic Paintings</a></li>
+            <li><a href="#watercolour-paintings"><b>03</b> Watercolour Paintings</a></li>
+            <li><a href="#god-goddess-paintings"><b>04</b> God &amp; Goddess Art</a></li>
+            <li><a href="#texture-art"><b>05</b> Texture Art</a></li>
+          </ul>
+        </li>
+        <li><a href="#commission" class="nav-link">Commission</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <a href="https://instagram.com/my_aestheticside" target="_blank" rel="noopener" class="header-cta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.25.07 1.6.07 4.81s-.01 3.56-.07 4.81c-.15 3.23-1.66 4.77-4.92 4.92-1.25.06-1.6.07-4.85.07s-3.6-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.16 15.56 2.15 15.21 2.15 12s.01-3.56.07-4.81c.15-3.23 1.66-4.77 4.92-4.92C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.15 0-3.5.01-4.74.07-2.27.1-3.33 1.18-3.43 3.43C3.77 8.74 3.76 9.09 3.76 12s.01 3.26.07 4.5c.1 2.25 1.16 3.33 3.43 3.43 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c2.26-.1 3.33-1.17 3.43-3.43.06-1.24.07-1.59.07-4.5s-.01-3.26-.07-4.5c-.1-2.25-1.17-3.33-3.43-3.43C15.5 4.01 15.15 4 12 4Zm0 3.55A4.45 4.45 0 1 1 7.55 12 4.45 4.45 0 0 1 12 7.55Zm0 1.8a2.65 2.65 0 1 0 2.65 2.65A2.65 2.65 0 0 0 12 9.35Zm4.65-2a1.04 1.04 0 1 1-1.04 1.04 1.04 1.04 0 0 1 1.04-1.04Z"/></svg><span>my_aestheticside</span>
+      </a>
     </nav>
 
-    <div class="nav-right">
-      <a class="nav-social" href="https://instagram.com/myaestheticside" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="home">
-  <div class="hero-noise"></div>
-  <div class="deco" aria-hidden="true">
-    <span class="ring ring-1 pale" data-parallax="0.08"></span>
-    <span class="ring ring-2 pale thin" data-parallax="-0.05"></span>
-    <span class="ring ring-3 pale thin" data-parallax="0.05"></span>
-    <span class="blob blob-hero" data-parallax="-0.03"></span>
-  </div>
-  <div class="hero-inner">
-    <div class="hero-text" data-reveal>
-      <p class="eyebrow">Artist &amp; Illustrator</p>
-      <h1 class="hero-title">Hetvi</h1>
-      <div class="hero-rule"></div>
-      <p class="hero-tagline">Feeling first. Form follows.</p>
-      <p class="hero-desc">Hetvi's studio is a place for patient looking. Portraiture, dimensional work and commissions share the same beginning: a willingness to stay with the material until it says something true.</p>
-      <p class="hero-signature">Hetvi<span> — Fine Art &amp; Illustration</span></p>
-      <div class="hero-cta">
-        <a href="#portfolio" class="btn btn-primary">Explore My Art</a>
-        <a href="#contact" class="btn btn-outline">Get in Touch</a>
-      </div>
-    </div>
+<main>
 
-    <div class="hero-art" data-reveal>
-      <div class="hero-art-frame">
-        <!-- Placeholder abstract study — swap for a photo of your work or process later -->
-        <svg viewBox="0 0 480 600" class="hero-art-svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="480" height="600" fill="#efe3d3"/>
-          <circle cx="150" cy="170" r="150" fill="#4f3a29" opacity="0.92"/>
-          <circle cx="335" cy="130" r="95" fill="#c3a67c" opacity="0.65" style="mix-blend-mode:multiply"/>
-          <circle cx="120" cy="430" r="135" fill="#a85c3f" opacity="0.55" style="mix-blend-mode:multiply"/>
-          <circle cx="350" cy="450" r="105" fill="#2c2015" opacity="0.16"/>
-          <path d="M30,300 Q240,255 450,315" stroke="#2c2015" stroke-width="3" fill="none" opacity="0.28" stroke-linecap="round"/>
-          <path d="M50,505 Q250,565 430,485" stroke="#efe3d3" stroke-width="3" fill="none" opacity="0.55" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="seal" aria-hidden="true">
-        <svg viewBox="0 0 120 120" class="seal-spin">
-          <defs><path id="sealPath" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
-          <circle cx="60" cy="60" r="35" fill="none" stroke="currentColor" stroke-width="0.75"/>
-          <text font-size="8.6" letter-spacing="2.5" fill="currentColor">
-            <textPath href="#sealPath">HAND PAINTED &#8226; MADE WITH SOUL &#8226; </textPath>
-          </text>
-        </svg>
-        <span class="seal-center">&#10022;</span>
-      </div>
+  <!-- ================= HERO (background video) ================= -->
+  <section class="hero" id="home">
+    <div class="hero-media" id="heroMedia">
+      <!-- Replace videos/hero-painting.mp4 with your own studio video (keep the same name) -->
+      <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto"
+             poster="images/portrait-sketches/personal-self-portraits/1.jpg">
+        <source src="videos/hero-painting.mp4" type="video/mp4">
+      </video>
     </div>
-  </div>
-  <a href="#about" class="scroll-cue" aria-label="Scroll down"><span></span></a>
-</section>
+    <div class="hero-shade" aria-hidden="true"></div>
 
-<!-- ===== PHILOSOPHY ===== -->
-<section class="philosophy" id="philosophy">
-  <div class="section-inner">
-    <div class="phil-grid">
-      <div class="phil-item" data-reveal>
-        <span class="phil-num">01</span>
-        <h3>Intimacy</h3>
-        <p>Small gestures, close attention.</p>
-      </div>
-      <div class="phil-item" data-reveal>
-        <span class="phil-num">02</span>
-        <h3>Tactility</h3>
-        <p>Surfaces made to be felt.</p>
-      </div>
-      <div class="phil-item" data-reveal>
-        <span class="phil-num">03</span>
-        <h3>Restraint</h3>
-        <p>Nothing added without reason.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="container hero-inner">
+      <p class="hero-eyebrow hero-in" style="--d:.1s"><span class="pulse"></span><span>Commissions open<span class="hide-xs"> · Custom art, made by hand</span></span></p>
 
-<!-- ===== ABOUT ===== -->
-<section class="about" id="about">
-  <div class="deco" aria-hidden="true">
-    <span class="ring ring-1" data-parallax="0.06"></span>
-    <span class="blob blob-1" data-parallax="-0.04"></span>
-  </div>
-  <div class="section-inner about-grid">
-    <div class="about-visual" data-reveal>
-      <div class="about-frame">
-        <img src="https://picsum.photos/seed/hetvi-about/700/860" alt="Hetvi at work" class="art-tint">
-      </div>
-    </div>
-    <div class="about-content" data-reveal>
-      <span class="watermark">About</span>
-      <div class="ornament"><span></span><i>&#10022;</i><span></span></div>
-      <p class="section-label">About the Artist</p>
-      <h2 class="section-title">Colour, patience &amp; a little bit of soul.</h2>
-      <p class="about-text">
-        Hi, I'm Hetvi. My studio is a place for patient looking — small gestures, close attention, nothing added
-        without reason. From delicate graphite portrait sketches to bold acrylic textures and devotional god &amp;
-        goddess art, every piece begins with a story and stays with the material until it says something true.
-        <em>(Update this bio anytime.)</em>
-      </p>
-      <ul class="skills-list">
-        <li><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5l6 6L8 22H2v-6L14.5 3.5z"/><path d="M13 5l6 6"/></svg></span>Portrait Sketches</li>
-        <li><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.9 2-1.8 0-.5-.2-.9-.4-1.3-.2-.4-.4-.8-.4-1.3 0-1 .8-1.6 1.8-1.6H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"/><circle cx="7.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="11" cy="7.2" r="1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.3" r="1" fill="currentColor" stroke="none"/></svg></span>Acrylic Paintings</li>
-        <li><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5S5.5 10 5.5 15a6.5 6.5 0 0 0 13 0C18.5 10 12 2.5 12 2.5z"/></svg></span>Watercolour Paintings</li>
-        <li><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14V4"/><path d="M12 14c3-1 4-4 4-7-3 0-5 2-6 4"/><path d="M12 14c-3-1-4-4-4-7 3 0 5 2 6 4"/><path d="M4 20c2-3 5-4 8-4s6 1 8 4"/><path d="M9 20c0-2.5 1.5-4 3-4s3 1.5 3 4"/></svg></span>God &amp; Goddess Paintings</li>
-        <li><span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span>Texture &amp; Resin Art</li>
-      </ul>
-    </div>
-  </div>
-</section>
+      <h1 class="hero-title" aria-label="Hetvi">
+        <span class="hero-name" id="heroName">Hetvi</span>
+      </h1>
 
-<!-- ===== PORTFOLIO ===== -->
-<section class="portfolio" id="portfolio">
-  <div class="deco" aria-hidden="true">
-    <span class="ring ring-1 thin" data-parallax="0.05"></span>
-    <span class="ring ring-2" data-parallax="-0.06"></span>
-  </div>
-  <div class="section-inner">
-    <span class="watermark center">Portfolio</span>
-    <div class="ornament center"><span></span><i>&#10022;</i><span></span></div>
-    <p class="section-label center">Styles &amp; Offerings</p>
-    <h2 class="section-title center">Portfolio</h2>
-    <p class="section-sub center">Made for the feeling of a place. From keepsake portraits to tactile statement pieces, every work begins with a story and ends with a sense of belonging.</p>
-
-    <div class="tabs" id="tabs" role="tablist">
-      <button class="tab active" data-target="panel-portrait" role="tab" aria-selected="true">Portrait Sketches</button>
-      <button class="tab" data-target="panel-acrylic" role="tab" aria-selected="false">Acrylic Paintings</button>
-      <button class="tab" data-target="panel-watercolour" role="tab" aria-selected="false">Watercolour Paintings</button>
-      <button class="tab" data-target="panel-godgoddess" role="tab" aria-selected="false">God &amp; Goddess Art</button>
-      <button class="tab" data-target="panel-texture" role="tab" aria-selected="false">Texture Art</button>
-    </div>
-    <div class="rail" aria-hidden="true"></div>
-
-    <!-- PORTRAIT SKETCHES -->
-    <div class="panel active" id="panel-portrait" data-reveal>
-      <div class="fan-stage">
-        <div class="fan-track" data-track>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-self-1/900/1100" src="https://picsum.photos/seed/portrait-self-1/420/520" alt="Self portrait sketch">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-self-2/900/1100" src="https://picsum.photos/seed/portrait-self-2/420/520" alt="Self portrait sketch">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-self-3/900/1100" src="https://picsum.photos/seed/portrait-self-3/420/520" alt="Self portrait sketch">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-self-4/900/1100" src="https://picsum.photos/seed/portrait-self-4/420/520" alt="Self portrait sketch">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-self-5/900/1100" src="https://picsum.photos/seed/portrait-self-5/420/520" alt="Self portrait sketch">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-couple-1/900/1100" src="https://picsum.photos/seed/portrait-couple-1/420/520" alt="Couple portrait sketch">
-              <span class="fan-caption">Couple Portraits</span>
-              <span class="fan-tag">Couple Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-couple-2/900/1100" src="https://picsum.photos/seed/portrait-couple-2/420/520" alt="Couple portrait sketch">
-              <span class="fan-caption">Couple Portraits</span>
-              <span class="fan-tag">Couple Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-couple-3/900/1100" src="https://picsum.photos/seed/portrait-couple-3/420/520" alt="Couple portrait sketch">
-              <span class="fan-caption">Couple Portraits</span>
-              <span class="fan-tag">Couple Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-couple-4/900/1100" src="https://picsum.photos/seed/portrait-couple-4/420/520" alt="Couple portrait sketch">
-              <span class="fan-caption">Couple Portraits</span>
-              <span class="fan-tag">Couple Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-couple-5/900/1100" src="https://picsum.photos/seed/portrait-couple-5/420/520" alt="Couple portrait sketch">
-              <span class="fan-caption">Couple Portraits</span>
-              <span class="fan-tag">Couple Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-pet-1/900/1100" src="https://picsum.photos/seed/portrait-pet-1/420/520" alt="Pet portrait sketch">
-              <span class="fan-caption">Pet Portraits</span>
-              <span class="fan-tag">Pet Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-pet-2/900/1100" src="https://picsum.photos/seed/portrait-pet-2/420/520" alt="Pet portrait sketch">
-              <span class="fan-caption">Pet Portraits</span>
-              <span class="fan-tag">Pet Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-pet-3/900/1100" src="https://picsum.photos/seed/portrait-pet-3/420/520" alt="Pet portrait sketch">
-              <span class="fan-caption">Pet Portraits</span>
-              <span class="fan-tag">Pet Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-pet-4/900/1100" src="https://picsum.photos/seed/portrait-pet-4/420/520" alt="Pet portrait sketch">
-              <span class="fan-caption">Pet Portraits</span>
-              <span class="fan-tag">Pet Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-pet-5/900/1100" src="https://picsum.photos/seed/portrait-pet-5/420/520" alt="Pet portrait sketch">
-              <span class="fan-caption">Pet Portraits</span>
-              <span class="fan-tag">Pet Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-family-1/900/1100" src="https://picsum.photos/seed/portrait-family-1/420/520" alt="Family portrait sketch">
-              <span class="fan-caption">Family Portraits</span>
-              <span class="fan-tag">Family Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-family-2/900/1100" src="https://picsum.photos/seed/portrait-family-2/420/520" alt="Family portrait sketch">
-              <span class="fan-caption">Family Portraits</span>
-              <span class="fan-tag">Family Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-family-3/900/1100" src="https://picsum.photos/seed/portrait-family-3/420/520" alt="Family portrait sketch">
-              <span class="fan-caption">Family Portraits</span>
-              <span class="fan-tag">Family Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-family-4/900/1100" src="https://picsum.photos/seed/portrait-family-4/420/520" alt="Family portrait sketch">
-              <span class="fan-caption">Family Portraits</span>
-              <span class="fan-tag">Family Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-family-5/900/1100" src="https://picsum.photos/seed/portrait-family-5/420/520" alt="Family portrait sketch">
-              <span class="fan-caption">Family Portraits</span>
-              <span class="fan-tag">Family Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-bridegroom-1/900/1100" src="https://picsum.photos/seed/portrait-bridegroom-1/420/520" alt="Bride and groom portrait sketch">
-              <span class="fan-caption">Bride &amp; Groom Portraits</span>
-              <span class="fan-tag">Bride &amp; Groom Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-bridegroom-2/900/1100" src="https://picsum.photos/seed/portrait-bridegroom-2/420/520" alt="Bride and groom portrait sketch">
-              <span class="fan-caption">Bride &amp; Groom Portraits</span>
-              <span class="fan-tag">Bride &amp; Groom Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-bridegroom-3/900/1100" src="https://picsum.photos/seed/portrait-bridegroom-3/420/520" alt="Bride and groom portrait sketch">
-              <span class="fan-caption">Bride &amp; Groom Portraits</span>
-              <span class="fan-tag">Bride &amp; Groom Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-bridegroom-4/900/1100" src="https://picsum.photos/seed/portrait-bridegroom-4/420/520" alt="Bride and groom portrait sketch">
-              <span class="fan-caption">Bride &amp; Groom Portraits</span>
-              <span class="fan-tag">Bride &amp; Groom Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/portrait-bridegroom-5/900/1100" src="https://picsum.photos/seed/portrait-bridegroom-5/420/520" alt="Bride and groom portrait sketch">
-              <span class="fan-caption">Bride &amp; Groom Portraits</span>
-              <span class="fan-tag">Bride &amp; Groom Portraits</span>
-            </div>
-        </div>
-        <div class="fan-controls">
-          <button class="fan-btn fan-prev" type="button" aria-label="Previous artwork">&#8592;</button>
-          <button class="fan-btn fan-next" type="button" aria-label="Next artwork">&#8594;</button>
+      <div class="hero-row">
+        <p class="hero-lede hero-in" style="--d:.9s">
+          I paint
+          <span class="rotator" id="rotator">
+            <span class="is-active">faces</span>
+            <span>feelings</span>
+            <span>devotion</span>
+            <span>texture</span>
+            <span>memories</span>
+          </span>
+          <br>one custom piece at a time.
+        </p>
+        <div class="hero-cta hero-in" style="--d:1.05s">
+          <a href="#craft" class="btn btn-primary magnetic"><span>Explore my art</span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#contact" class="btn btn-glass magnetic"><span>Let's connect</span></a>
         </div>
       </div>
     </div>
 
-    <!-- ACRYLIC PAINTINGS -->
-    <div class="panel" id="panel-acrylic" data-reveal>
-      <div class="fan-stage">
-        <div class="fan-track" data-track>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-self-1/900/1100" src="https://picsum.photos/seed/acrylic-self-1/420/520" alt="Acrylic self portrait">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-self-2/900/1100" src="https://picsum.photos/seed/acrylic-self-2/420/520" alt="Acrylic self portrait">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-self-3/900/1100" src="https://picsum.photos/seed/acrylic-self-3/420/520" alt="Acrylic self portrait">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-self-4/900/1100" src="https://picsum.photos/seed/acrylic-self-4/420/520" alt="Acrylic self portrait">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-self-5/900/1100" src="https://picsum.photos/seed/acrylic-self-5/420/520" alt="Acrylic self portrait">
-              <span class="fan-caption">Self Portraits</span>
-              <span class="fan-tag">Self Portraits</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-vector-1/900/1100" src="https://picsum.photos/seed/acrylic-vector-1/420/520" alt="Vector style painting">
-              <span class="fan-caption">Vector Painting</span>
-              <span class="fan-tag">Vector Painting</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-vector-2/900/1100" src="https://picsum.photos/seed/acrylic-vector-2/420/520" alt="Vector style painting">
-              <span class="fan-caption">Vector Painting</span>
-              <span class="fan-tag">Vector Painting</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-vector-3/900/1100" src="https://picsum.photos/seed/acrylic-vector-3/420/520" alt="Vector style painting">
-              <span class="fan-caption">Vector Painting</span>
-              <span class="fan-tag">Vector Painting</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-vector-4/900/1100" src="https://picsum.photos/seed/acrylic-vector-4/420/520" alt="Vector style painting">
-              <span class="fan-caption">Vector Painting</span>
-              <span class="fan-tag">Vector Painting</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-vector-5/900/1100" src="https://picsum.photos/seed/acrylic-vector-5/420/520" alt="Vector style painting">
-              <span class="fan-caption">Vector Painting</span>
-              <span class="fan-tag">Vector Painting</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-abstract-1/900/1100" src="https://picsum.photos/seed/acrylic-abstract-1/420/520" alt="Abstract acrylic painting">
-              <span class="fan-caption">Abstract Paintings</span>
-              <span class="fan-tag">Abstract Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-abstract-2/900/1100" src="https://picsum.photos/seed/acrylic-abstract-2/420/520" alt="Abstract acrylic painting">
-              <span class="fan-caption">Abstract Paintings</span>
-              <span class="fan-tag">Abstract Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-abstract-3/900/1100" src="https://picsum.photos/seed/acrylic-abstract-3/420/520" alt="Abstract acrylic painting">
-              <span class="fan-caption">Abstract Paintings</span>
-              <span class="fan-tag">Abstract Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-abstract-4/900/1100" src="https://picsum.photos/seed/acrylic-abstract-4/420/520" alt="Abstract acrylic painting">
-              <span class="fan-caption">Abstract Paintings</span>
-              <span class="fan-tag">Abstract Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/acrylic-abstract-5/900/1100" src="https://picsum.photos/seed/acrylic-abstract-5/420/520" alt="Abstract acrylic painting">
-              <span class="fan-caption">Abstract Paintings</span>
-              <span class="fan-tag">Abstract Paintings</span>
-            </div>
+    <button class="hero-badge hero-in" id="videoToggle" style="--d:1.2s" aria-label="Pause background video">
+      <svg viewBox="0 0 200 200" class="badge-text" aria-hidden="true">
+        <defs><path id="badgeCircle" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+        <text><textPath href="#badgeCircle">watch the studio ✦ watch the studio ✦ watch the studio ✦ </textPath></text>
+      </svg>
+      <span class="badge-icon">
+        <svg class="i-pause" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>
+        <svg class="i-play" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+      </span>
+    </button>
+
+    <div class="hero-foot container hero-in" style="--d:1.3s">
+      <span>Portraits</span><span>Acrylics</span><span>Watercolours</span><span>Divine Art</span><span>Texture Art</span>
+      <a href="#about" class="scroll-cue" aria-label="Scroll down"><i></i>Scroll</a>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-visual">
+        <div class="about-img about-img--main reveal-img"><div class="art-media"><img loading="lazy" src="images/about/1.jpg" alt="An artist at work in the studio"></div></div>
+        <div class="about-img about-img--small reveal-img" style="--i:2"><div class="art-media"><img loading="lazy" src="images/watercolour-paintings/other-paintings/2.jpg" alt="Watercolour flowers"></div></div>
+        <div class="spin-badge" aria-hidden="true">
+          <svg viewBox="0 0 200 200"><defs><path id="aboutCircle" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+            <text><textPath href="#aboutCircle">handmade ✦ one of one ✦ made to order ✦ </textPath></text></svg>
+          <span>✺</span>
         </div>
-        <div class="fan-controls">
-          <button class="fan-btn fan-prev" type="button" aria-label="Previous artwork">&#8592;</button>
-          <button class="fan-btn fan-next" type="button" aria-label="Next artwork">&#8594;</button>
+        <span class="about-hand">studio moments ✎</span>
+      </div>
+
+      <div class="about-content">
+        <p class="eyebrow reveal">About the artist</p>
+        <h2 class="split">The artist behind <em>the canvas</em></h2>
+        <p class="about-text reveal">Hi, I'm Hetvi — an artist who finds magic in turning faces, feelings and blank walls into something worth remembering. My hands move between graphite, acrylic, watercolour and texture, but the goal stays the same: art that feels personal.</p>
+        <p class="about-text reveal">Whether it's a quiet portrait of someone you love, a goddess painted in gold, or a textured piece made just for your living room — every commission is built around your story, not a template.</p>
+        <div class="about-stats reveal">
+          <div><strong data-count="5" data-suffix="+">0+</strong><span>Mediums</span></div>
+          <div><strong data-count="16" data-suffix="">0</strong><span>Art styles</span></div>
+          <div><strong data-count="100" data-suffix="%">0%</strong><span>Custom-made</span></div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- WATERCOLOUR PAINTINGS -->
-    <div class="panel" id="panel-watercolour" data-reveal>
-      <div class="fan-stage">
-        <div class="fan-track" data-track>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-landscape-1/900/1100" src="https://picsum.photos/seed/watercolour-landscape-1/420/520" alt="Watercolour landscape">
-              <span class="fan-caption">Landscapes</span>
-              <span class="fan-tag">Landscapes</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-landscape-2/900/1100" src="https://picsum.photos/seed/watercolour-landscape-2/420/520" alt="Watercolour landscape">
-              <span class="fan-caption">Landscapes</span>
-              <span class="fan-tag">Landscapes</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-landscape-3/900/1100" src="https://picsum.photos/seed/watercolour-landscape-3/420/520" alt="Watercolour landscape">
-              <span class="fan-caption">Landscapes</span>
-              <span class="fan-tag">Landscapes</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-landscape-4/900/1100" src="https://picsum.photos/seed/watercolour-landscape-4/420/520" alt="Watercolour landscape">
-              <span class="fan-caption">Landscapes</span>
-              <span class="fan-tag">Landscapes</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-landscape-5/900/1100" src="https://picsum.photos/seed/watercolour-landscape-5/420/520" alt="Watercolour landscape">
-              <span class="fan-caption">Landscapes</span>
-              <span class="fan-tag">Landscapes</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-other-1/900/1100" src="https://picsum.photos/seed/watercolour-other-1/420/520" alt="Watercolour painting">
-              <span class="fan-caption">Other Paintings</span>
-              <span class="fan-tag">Other Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-other-2/900/1100" src="https://picsum.photos/seed/watercolour-other-2/420/520" alt="Watercolour painting">
-              <span class="fan-caption">Other Paintings</span>
-              <span class="fan-tag">Other Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-other-3/900/1100" src="https://picsum.photos/seed/watercolour-other-3/420/520" alt="Watercolour painting">
-              <span class="fan-caption">Other Paintings</span>
-              <span class="fan-tag">Other Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-other-4/900/1100" src="https://picsum.photos/seed/watercolour-other-4/420/520" alt="Watercolour painting">
-              <span class="fan-caption">Other Paintings</span>
-              <span class="fan-tag">Other Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/watercolour-other-5/900/1100" src="https://picsum.photos/seed/watercolour-other-5/420/520" alt="Watercolour painting">
-              <span class="fan-caption">Other Paintings</span>
-              <span class="fan-tag">Other Paintings</span>
-            </div>
+  <!-- ================= MY CRAFT (index list with hover preview) ================= -->
+  <section class="craft" id="craft">
+    <div class="container">
+      <div class="craft-head">
+        <div>
+          <p class="eyebrow reveal">My craft</p>
+          <h2 class="split">Five mediums, <em>endless stories</em></h2>
         </div>
-        <div class="fan-controls">
-          <button class="fan-btn fan-prev" type="button" aria-label="Previous artwork">&#8592;</button>
-          <button class="fan-btn fan-next" type="button" aria-label="Next artwork">&#8594;</button>
+        <p class="section-sub reveal">From graphite portraits to resin-textured walls — here's everywhere my pencil and brush wander. Pick one to dive in.</p>
+      </div>
+      <div class="medium-list">
+        <a href="#portrait-sketches" class="medium-row reveal" data-img="images/portrait-sketches/personal-self-portraits/2.jpg">
+          <span class="medium-num">01</span>
+          <span class="medium-name">Portrait Sketches</span>
+          <span class="medium-desc">Graphite &amp; charcoal portraits that hold on to the little details.<small>Self · Couple · Pet · Family · Bride &amp; Groom</small></span>
+          <span class="medium-thumb"><img loading="lazy" src="images/portrait-sketches/personal-self-portraits/2.jpg" alt=""></span>
+          <span class="medium-arrow"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#acrylic-paintings" class="medium-row reveal" data-img="images/acrylic-paintings/vector-painting/1.jpg">
+          <span class="medium-num">02</span>
+          <span class="medium-name">Acrylic Paintings</span>
+          <span class="medium-desc">Bold, layered strokes across portraits, vector art &amp; abstracts.</span>
+          <span class="medium-thumb"><img loading="lazy" src="images/acrylic-paintings/vector-painting/1.jpg" alt=""></span>
+          <span class="medium-arrow"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#watercolour-paintings" class="medium-row reveal" data-img="images/watercolour-paintings/landscapes/2.jpg">
+          <span class="medium-num">03</span>
+          <span class="medium-name">Watercolours</span>
+          <span class="medium-desc">Soft, flowing colour studies of landscapes &amp; quiet moments.</span>
+          <span class="medium-thumb"><img loading="lazy" src="images/watercolour-paintings/landscapes/2.jpg" alt=""></span>
+          <span class="medium-arrow"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#god-goddess-paintings" class="medium-row reveal" data-img="images/god-goddess-paintings/goddess-paintings/3.jpg">
+          <span class="medium-num">04</span>
+          <span class="medium-name">God &amp; Goddess Art</span>
+          <span class="medium-desc">Divine acrylic art, custom-sized &amp; finished to your vision.</span>
+          <span class="medium-thumb"><img loading="lazy" src="images/god-goddess-paintings/goddess-paintings/3.jpg" alt=""></span>
+          <span class="medium-arrow"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#texture-art" class="medium-row reveal" data-img="images/texture-art/living-room-decor/2.jpg">
+          <span class="medium-num">05</span>
+          <span class="medium-name">Texture Art</span>
+          <span class="medium-desc">Dimensional textured pieces &amp; resin art for homes, cafés &amp; offices.</span>
+          <span class="medium-thumb"><img loading="lazy" src="images/texture-art/living-room-decor/2.jpg" alt=""></span>
+          <span class="medium-arrow"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTRAIT SKETCHES ================= -->
+  <section class="work work--pinned" id="portrait-sketches">
+    <div class="work-deco" aria-hidden="true"></div>
+    <div class="container">
+      <header class="work-head">
+        <span class="work-num" aria-hidden="true">01</span>
+        <div class="work-titles">
+          <p class="eyebrow reveal">01 — Portrait Sketches</p>
+          <h2 class="split">Faces, <em>remembered</em></h2>
+          <p class="section-sub reveal">Graphite and charcoal portraits built layer by layer — made to hold on to expression, not just likeness.</p>
         </div>
+      </header>
+
+      <div class="chips reveal" data-target="portrait-sketches">
+        <button class="chip active" data-filter="all">All <sup>15</sup></button>
+        <button class="chip" data-filter="personal-self-portraits">Self Portraits <sup>3</sup></button>
+        <button class="chip" data-filter="couple-portraits">Couple Portraits <sup>3</sup></button>
+        <button class="chip" data-filter="pet-portraits">Pet Portraits <sup>3</sup></button>
+        <button class="chip" data-filter="family-portraits">Family Portraits <sup>3</sup></button>
+        <button class="chip" data-filter="bride-groom-portraits">Bride &amp; Groom <sup>3</sup></button>
       </div>
     </div>
 
-    <!-- GOD & GODDESS ART -->
-    <div class="panel" id="panel-godgoddess" data-reveal>
-      <p class="custom-note">✦ Available in custom sizes, colouring &amp; decor on request</p>
-      <div class="fan-stage">
-        <div class="fan-track" data-track>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/god-painting-1/900/1100" src="https://picsum.photos/seed/god-painting-1/420/520" alt="God painting in acrylic">
-              <span class="fan-caption">God Paintings</span>
-              <span class="fan-tag">God Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/god-painting-2/900/1100" src="https://picsum.photos/seed/god-painting-2/420/520" alt="God painting in acrylic">
-              <span class="fan-caption">God Paintings</span>
-              <span class="fan-tag">God Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/god-painting-3/900/1100" src="https://picsum.photos/seed/god-painting-3/420/520" alt="God painting in acrylic">
-              <span class="fan-caption">God Paintings</span>
-              <span class="fan-tag">God Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/god-painting-4/900/1100" src="https://picsum.photos/seed/god-painting-4/420/520" alt="God painting in acrylic">
-              <span class="fan-caption">God Paintings</span>
-              <span class="fan-tag">God Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/god-painting-5/900/1100" src="https://picsum.photos/seed/god-painting-5/420/520" alt="God painting in acrylic">
-              <span class="fan-caption">God Paintings</span>
-              <span class="fan-tag">God Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/goddess-painting-1/900/1100" src="https://picsum.photos/seed/goddess-painting-1/420/520" alt="Goddess painting in acrylic">
-              <span class="fan-caption">Goddess Paintings</span>
-              <span class="fan-tag">Goddess Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/goddess-painting-2/900/1100" src="https://picsum.photos/seed/goddess-painting-2/420/520" alt="Goddess painting in acrylic">
-              <span class="fan-caption">Goddess Paintings</span>
-              <span class="fan-tag">Goddess Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/goddess-painting-3/900/1100" src="https://picsum.photos/seed/goddess-painting-3/420/520" alt="Goddess painting in acrylic">
-              <span class="fan-caption">Goddess Paintings</span>
-              <span class="fan-tag">Goddess Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/goddess-painting-4/900/1100" src="https://picsum.photos/seed/goddess-painting-4/420/520" alt="Goddess painting in acrylic">
-              <span class="fan-caption">Goddess Paintings</span>
-              <span class="fan-tag">Goddess Paintings</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/goddess-painting-5/900/1100" src="https://picsum.photos/seed/goddess-painting-5/420/520" alt="Goddess painting in acrylic">
-              <span class="fan-caption">Goddess Paintings</span>
-              <span class="fan-tag">Goddess Paintings</span>
-            </div>
+    <div class="container">
+      <div class="gallery gallery--pinned" id="gallery-portrait-sketches">
+        <figure class="art" data-category="personal-self-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/personal-self-portraits/1.jpg" alt="Self Portrait 1"></div>
+          <figcaption><span class="art-cat">Self Portrait</span><span class="art-no">No. 01</span></figcaption>
+        </figure>
+        <figure class="art" data-category="personal-self-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/personal-self-portraits/2.jpg" alt="Self Portrait 2"></div>
+          <figcaption><span class="art-cat">Self Portrait</span><span class="art-no">No. 02</span></figcaption>
+        </figure>
+        <figure class="art" data-category="personal-self-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/personal-self-portraits/3.jpg" alt="Self Portrait 3"></div>
+          <figcaption><span class="art-cat">Self Portrait</span><span class="art-no">No. 03</span></figcaption>
+        </figure>
+        <figure class="art" data-category="couple-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/couple-portraits/1.jpg" alt="Couple Portrait 1"></div>
+          <figcaption><span class="art-cat">Couple Portrait</span><span class="art-no">No. 04</span></figcaption>
+        </figure>
+        <figure class="art" data-category="couple-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/couple-portraits/2.jpg" alt="Couple Portrait 2"></div>
+          <figcaption><span class="art-cat">Couple Portrait</span><span class="art-no">No. 05</span></figcaption>
+        </figure>
+        <figure class="art" data-category="couple-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/couple-portraits/3.jpg" alt="Couple Portrait 3"></div>
+          <figcaption><span class="art-cat">Couple Portrait</span><span class="art-no">No. 06</span></figcaption>
+        </figure>
+        <figure class="art" data-category="pet-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/pet-portraits/1.jpg" alt="Pet Portrait 1"></div>
+          <figcaption><span class="art-cat">Pet Portrait</span><span class="art-no">No. 07</span></figcaption>
+        </figure>
+        <figure class="art" data-category="pet-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/pet-portraits/2.jpg" alt="Pet Portrait 2"></div>
+          <figcaption><span class="art-cat">Pet Portrait</span><span class="art-no">No. 08</span></figcaption>
+        </figure>
+        <figure class="art" data-category="pet-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/pet-portraits/3.jpg" alt="Pet Portrait 3"></div>
+          <figcaption><span class="art-cat">Pet Portrait</span><span class="art-no">No. 09</span></figcaption>
+        </figure>
+        <figure class="art" data-category="family-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/family-portraits/1.jpg" alt="Family Portrait 1"></div>
+          <figcaption><span class="art-cat">Family Portrait</span><span class="art-no">No. 10</span></figcaption>
+        </figure>
+        <figure class="art" data-category="family-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/family-portraits/2.jpg" alt="Family Portrait 2"></div>
+          <figcaption><span class="art-cat">Family Portrait</span><span class="art-no">No. 11</span></figcaption>
+        </figure>
+        <figure class="art" data-category="family-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/family-portraits/3.jpg" alt="Family Portrait 3"></div>
+          <figcaption><span class="art-cat">Family Portrait</span><span class="art-no">No. 12</span></figcaption>
+        </figure>
+        <figure class="art" data-category="bride-groom-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/bride-groom-portraits/1.jpg" alt="Bride and Groom 1"></div>
+          <figcaption><span class="art-cat">Bride &amp; Groom</span><span class="art-no">No. 13</span></figcaption>
+        </figure>
+        <figure class="art" data-category="bride-groom-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/bride-groom-portraits/2.jpg" alt="Bride and Groom 2"></div>
+          <figcaption><span class="art-cat">Bride &amp; Groom</span><span class="art-no">No. 14</span></figcaption>
+        </figure>
+        <figure class="art" data-category="bride-groom-portraits">
+          <div class="art-media"><img loading="lazy" src="images/portrait-sketches/bride-groom-portraits/3.jpg" alt="Bride and Groom 3"></div>
+          <figcaption><span class="art-cat">Bride &amp; Groom</span><span class="art-no">No. 15</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ACRYLIC PAINTINGS ================= -->
+  <section class="work work--scroller tone-dark" id="acrylic-paintings">
+    <div class="work-deco" aria-hidden="true"></div>
+    <div class="container">
+      <header class="work-head">
+        <span class="work-num" aria-hidden="true">02</span>
+        <div class="work-titles">
+          <p class="eyebrow reveal">02 — Acrylic Paintings</p>
+          <h2 class="split">Bold strokes, <em>honest colour</em></h2>
+          <p class="section-sub reveal">Textured, confident acrylic work — from lifelike self portraits to vector-inspired and abstract pieces. Drag to explore.</p>
         </div>
-        <div class="fan-controls">
-          <button class="fan-btn fan-prev" type="button" aria-label="Previous artwork">&#8592;</button>
-          <button class="fan-btn fan-next" type="button" aria-label="Next artwork">&#8594;</button>
-        </div>
+      </header>
+
+      <div class="chips reveal" data-target="acrylic-paintings">
+        <button class="chip active" data-filter="all">All <sup>9</sup></button>
+        <button class="chip" data-filter="self-portraits">Self Portraits <sup>3</sup></button>
+        <button class="chip" data-filter="vector-painting">Vector Painting <sup>3</sup></button>
+        <button class="chip" data-filter="abstract-paintings">Abstract Paintings <sup>3</sup></button>
       </div>
     </div>
 
-    <!-- TEXTURE ART -->
-    <div class="panel" id="panel-texture" data-reveal>
-      <p class="custom-note">✦ Custom textures for living rooms, cafés &amp; offices — including resin art</p>
-      <div class="fan-stage">
-        <div class="fan-track" data-track>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-livingroom-1/900/1100" src="https://picsum.photos/seed/texture-livingroom-1/420/520" alt="Textured wall art for living room">
-              <span class="fan-caption">Living Room Textures</span>
-              <span class="fan-tag">Living Room Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-livingroom-2/900/1100" src="https://picsum.photos/seed/texture-livingroom-2/420/520" alt="Textured wall art for living room">
-              <span class="fan-caption">Living Room Textures</span>
-              <span class="fan-tag">Living Room Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-livingroom-3/900/1100" src="https://picsum.photos/seed/texture-livingroom-3/420/520" alt="Textured wall art for living room">
-              <span class="fan-caption">Living Room Textures</span>
-              <span class="fan-tag">Living Room Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-livingroom-4/900/1100" src="https://picsum.photos/seed/texture-livingroom-4/420/520" alt="Textured wall art for living room">
-              <span class="fan-caption">Living Room Textures</span>
-              <span class="fan-tag">Living Room Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-livingroom-5/900/1100" src="https://picsum.photos/seed/texture-livingroom-5/420/520" alt="Textured wall art for living room">
-              <span class="fan-caption">Living Room Textures</span>
-              <span class="fan-tag">Living Room Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-cafeoffice-1/900/1100" src="https://picsum.photos/seed/texture-cafeoffice-1/420/520" alt="Textured art for cafe or office">
-              <span class="fan-caption">Café &amp; Office Textures</span>
-              <span class="fan-tag">Café &amp; Office Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-cafeoffice-2/900/1100" src="https://picsum.photos/seed/texture-cafeoffice-2/420/520" alt="Textured art for cafe or office">
-              <span class="fan-caption">Café &amp; Office Textures</span>
-              <span class="fan-tag">Café &amp; Office Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-cafeoffice-3/900/1100" src="https://picsum.photos/seed/texture-cafeoffice-3/420/520" alt="Textured art for cafe or office">
-              <span class="fan-caption">Café &amp; Office Textures</span>
-              <span class="fan-tag">Café &amp; Office Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-cafeoffice-4/900/1100" src="https://picsum.photos/seed/texture-cafeoffice-4/420/520" alt="Textured art for cafe or office">
-              <span class="fan-caption">Café &amp; Office Textures</span>
-              <span class="fan-tag">Café &amp; Office Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-cafeoffice-5/900/1100" src="https://picsum.photos/seed/texture-cafeoffice-5/420/520" alt="Textured art for cafe or office">
-              <span class="fan-caption">Café &amp; Office Textures</span>
-              <span class="fan-tag">Café &amp; Office Textures</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-resin-1/900/1100" src="https://picsum.photos/seed/texture-resin-1/420/520" alt="Resin art piece">
-              <span class="fan-caption">Resin Art</span>
-              <span class="fan-tag">Resin Art</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-resin-2/900/1100" src="https://picsum.photos/seed/texture-resin-2/420/520" alt="Resin art piece">
-              <span class="fan-caption">Resin Art</span>
-              <span class="fan-tag">Resin Art</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-resin-3/900/1100" src="https://picsum.photos/seed/texture-resin-3/420/520" alt="Resin art piece">
-              <span class="fan-caption">Resin Art</span>
-              <span class="fan-tag">Resin Art</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-resin-4/900/1100" src="https://picsum.photos/seed/texture-resin-4/420/520" alt="Resin art piece">
-              <span class="fan-caption">Resin Art</span>
-              <span class="fan-tag">Resin Art</span>
-            </div>
-            <div class="fan-card" tabindex="0">
-              <img data-full="https://picsum.photos/seed/texture-resin-5/900/1100" src="https://picsum.photos/seed/texture-resin-5/420/520" alt="Resin art piece">
-              <span class="fan-caption">Resin Art</span>
-              <span class="fan-tag">Resin Art</span>
-            </div>
+    <div class="scroller-wrap">
+      <div class="gallery gallery--scroller" id="gallery-acrylic-paintings">
+        <figure class="art" data-category="self-portraits">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/self-portraits/1.jpg" alt="Self Portrait 1"></div>
+          <figcaption><span class="art-cat">Self Portrait</span><span class="art-no">No. 01</span></figcaption>
+        </figure>
+        <figure class="art" data-category="self-portraits">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/self-portraits/2.jpg" alt="Self Portrait 2"></div>
+          <figcaption><span class="art-cat">Self Portrait</span><span class="art-no">No. 02</span></figcaption>
+        </figure>
+        <figure class="art" data-category="self-portraits">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/self-portraits/3.jpg" alt="Self Portrait 3"></div>
+          <figcaption><span class="art-cat">Self Portrait</span><span class="art-no">No. 03</span></figcaption>
+        </figure>
+        <figure class="art" data-category="vector-painting">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/vector-painting/1.jpg" alt="Vector Painting 1"></div>
+          <figcaption><span class="art-cat">Vector Painting</span><span class="art-no">No. 04</span></figcaption>
+        </figure>
+        <figure class="art" data-category="vector-painting">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/vector-painting/2.jpg" alt="Vector Painting 2"></div>
+          <figcaption><span class="art-cat">Vector Painting</span><span class="art-no">No. 05</span></figcaption>
+        </figure>
+        <figure class="art" data-category="vector-painting">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/vector-painting/3.jpg" alt="Vector Painting 3"></div>
+          <figcaption><span class="art-cat">Vector Painting</span><span class="art-no">No. 06</span></figcaption>
+        </figure>
+        <figure class="art" data-category="abstract-paintings">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/abstract-paintings/1.jpg" alt="Abstract 1"></div>
+          <figcaption><span class="art-cat">Abstract</span><span class="art-no">No. 07</span></figcaption>
+        </figure>
+        <figure class="art" data-category="abstract-paintings">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/abstract-paintings/2.jpg" alt="Abstract 2"></div>
+          <figcaption><span class="art-cat">Abstract</span><span class="art-no">No. 08</span></figcaption>
+        </figure>
+        <figure class="art" data-category="abstract-paintings">
+          <div class="art-media"><img loading="lazy" src="images/acrylic-paintings/abstract-paintings/3.jpg" alt="Abstract 3"></div>
+          <figcaption><span class="art-cat">Abstract</span><span class="art-no">No. 09</span></figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="container">
+      <div class="scroller-nav">
+        <button class="round-btn" data-scroll="-1" aria-label="Previous"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <div class="scroller-progress"><span></span></div>
+        <button class="round-btn" data-scroll="1" aria-label="Next"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WATERCOLOUR PAINTINGS ================= -->
+  <section class="work work--organic tone-wash" id="watercolour-paintings">
+    <div class="work-deco" aria-hidden="true"></div>
+    <div class="container">
+      <header class="work-head">
+        <span class="work-num" aria-hidden="true">03</span>
+        <div class="work-titles">
+          <p class="eyebrow reveal">03 — Watercolour Paintings</p>
+          <h2 class="split">Soft, <em>breathing</em> colour</h2>
+          <p class="section-sub reveal">Fluid, translucent colour work — landscapes and quiet studies, painted wet-on-wet.</p>
         </div>
-        <div class="fan-controls">
-          <button class="fan-btn fan-prev" type="button" aria-label="Previous artwork">&#8592;</button>
-          <button class="fan-btn fan-next" type="button" aria-label="Next artwork">&#8594;</button>
-        </div>
+      </header>
+
+      <div class="chips reveal" data-target="watercolour-paintings">
+        <button class="chip active" data-filter="all">All <sup>6</sup></button>
+        <button class="chip" data-filter="landscapes">Landscapes <sup>3</sup></button>
+        <button class="chip" data-filter="other-paintings">Other Paintings <sup>3</sup></button>
       </div>
     </div>
 
-  
-
-  </div>
-</section>
-
-<!-- ===== COMMISSIONS ===== -->
-<section class="commissions" id="commissions">
-  <div class="section-inner commissions-box" data-reveal>
-    <div class="deco" aria-hidden="true">
-      <span class="ring ring-1" data-parallax="0.05"></span>
+    <div class="container">
+      <div class="gallery gallery--organic" id="gallery-watercolour-paintings">
+        <figure class="art" data-category="landscapes">
+          <div class="art-media"><img loading="lazy" src="images/watercolour-paintings/landscapes/1.jpg" alt="Landscape 1"></div>
+          <figcaption><span class="art-cat">Landscape</span><span class="art-no">No. 01</span></figcaption>
+        </figure>
+        <figure class="art" data-category="landscapes">
+          <div class="art-media"><img loading="lazy" src="images/watercolour-paintings/landscapes/2.jpg" alt="Landscape 2"></div>
+          <figcaption><span class="art-cat">Landscape</span><span class="art-no">No. 02</span></figcaption>
+        </figure>
+        <figure class="art" data-category="landscapes">
+          <div class="art-media"><img loading="lazy" src="images/watercolour-paintings/landscapes/3.jpg" alt="Landscape 3"></div>
+          <figcaption><span class="art-cat">Landscape</span><span class="art-no">No. 03</span></figcaption>
+        </figure>
+        <figure class="art" data-category="other-paintings">
+          <div class="art-media"><img loading="lazy" src="images/watercolour-paintings/other-paintings/1.jpg" alt="Study 1"></div>
+          <figcaption><span class="art-cat">Study</span><span class="art-no">No. 04</span></figcaption>
+        </figure>
+        <figure class="art" data-category="other-paintings">
+          <div class="art-media"><img loading="lazy" src="images/watercolour-paintings/other-paintings/2.jpg" alt="Study 2"></div>
+          <figcaption><span class="art-cat">Study</span><span class="art-no">No. 05</span></figcaption>
+        </figure>
+        <figure class="art" data-category="other-paintings">
+          <div class="art-media"><img loading="lazy" src="images/watercolour-paintings/other-paintings/3.jpg" alt="Study 3"></div>
+          <figcaption><span class="art-cat">Study</span><span class="art-no">No. 06</span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div>
-      <p class="section-label">Commissions</p>
-      <h2 class="section-title">A piece with your fingerprints.</h2>
-      <p class="commissions-text">Commission a portrait or dimensional work made in conversation with you — including size, colour &amp; decor requests for god &amp; goddess art and texture / resin pieces. Each one is unrepeatable by design.</p>
+  </section>
+
+  <!-- ================= GOD &AMP; GODDESS ART ================= -->
+  <section class="work work--arch tone-divine" id="god-goddess-paintings">
+    <div class="work-deco" aria-hidden="true"></div>
+    <div class="container">
+      <header class="work-head">
+        <span class="work-num" aria-hidden="true">04</span>
+        <div class="work-titles">
+          <p class="eyebrow reveal">04 — God &amp; Goddess Art</p>
+          <h2 class="split">Devotion, <em>painted</em></h2>
+          <p class="section-sub reveal">Acrylic devotional art finished with intention — every size, palette and decorative detail made to order.</p>
+          <p class="custom-note reveal"><span>✦</span> Fully customisable — share your preferred size, colour palette and decorative finish.</p>
+        </div>
+      </header>
+
+      <div class="chips reveal" data-target="god-goddess-paintings">
+        <button class="chip active" data-filter="all">All <sup>6</sup></button>
+        <button class="chip" data-filter="god-paintings">God Paintings <sup>3</sup></button>
+        <button class="chip" data-filter="goddess-paintings">Goddess Paintings <sup>3</sup></button>
+      </div>
     </div>
-    <a href="#contact" class="btn btn-primary">Start a Commission</a>
-  </div>
-</section>
 
-<!-- ===== CONTACT ===== -->
-<section class="contact" id="contact">
-  <div class="deco" aria-hidden="true">
-    <span class="ring ring-1 thin" data-parallax="0.06"></span>
-    <span class="blob blob-1" data-parallax="-0.05"></span>
-  </div>
-  <div class="section-inner">
-    <div class="ornament center"><span></span><i>&#10022;</i><span></span></div>
-    <p class="section-label center">Get in Touch</p>
-    <h2 class="section-title center">Let's create something together</h2>
-
-    <div class="contact-grid" data-reveal>
-      <a class="contact-card" href="https://instagram.com/myaestheticside" target="_blank" rel="noopener">
-        <span class="contact-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
-        </span>
-        <span class="contact-label">Instagram</span>
-        <span class="contact-value">@myaestheticside</span>
-      </a>
-
-      <a class="contact-card" href="mailto:youremail@example.com">
-        <span class="contact-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="M3 6l9 7 9-7"/></svg>
-        </span>
-        <span class="contact-label">Email</span>
-        <span class="contact-value">youremail@example.com</span>
-      </a>
-
-      <a class="contact-card" href="tel:+910000000000">
-        <span class="contact-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2C9.5 22 2 14.5 2 6a2 2 0 0 1 2-2z"/></svg>
-        </span>
-        <span class="contact-label">Phone</span>
-        <span class="contact-value">+91 00000 00000</span>
-      </a>
+    <div class="container">
+      <div class="gallery gallery--arch" id="gallery-god-goddess-paintings">
+        <figure class="art" data-category="god-paintings">
+          <div class="art-media"><img loading="lazy" src="images/god-goddess-paintings/god-paintings/1.jpg" alt="God Painting 1"></div>
+          <figcaption><span class="art-cat">God Painting</span><span class="art-no">No. 01</span></figcaption>
+        </figure>
+        <figure class="art" data-category="god-paintings">
+          <div class="art-media"><img loading="lazy" src="images/god-goddess-paintings/god-paintings/2.jpg" alt="God Painting 2"></div>
+          <figcaption><span class="art-cat">God Painting</span><span class="art-no">No. 02</span></figcaption>
+        </figure>
+        <figure class="art" data-category="god-paintings">
+          <div class="art-media"><img loading="lazy" src="images/god-goddess-paintings/god-paintings/3.jpg" alt="God Painting 3"></div>
+          <figcaption><span class="art-cat">God Painting</span><span class="art-no">No. 03</span></figcaption>
+        </figure>
+        <figure class="art" data-category="goddess-paintings">
+          <div class="art-media"><img loading="lazy" src="images/god-goddess-paintings/goddess-paintings/1.jpg" alt="Goddess Painting 1"></div>
+          <figcaption><span class="art-cat">Goddess Painting</span><span class="art-no">No. 04</span></figcaption>
+        </figure>
+        <figure class="art" data-category="goddess-paintings">
+          <div class="art-media"><img loading="lazy" src="images/god-goddess-paintings/goddess-paintings/2.jpg" alt="Goddess Painting 2"></div>
+          <figcaption><span class="art-cat">Goddess Painting</span><span class="art-no">No. 05</span></figcaption>
+        </figure>
+        <figure class="art" data-category="goddess-paintings">
+          <div class="art-media"><img loading="lazy" src="images/god-goddess-paintings/goddess-paintings/3.jpg" alt="Goddess Painting 3"></div>
+          <figcaption><span class="art-cat">Goddess Painting</span><span class="art-no">No. 06</span></figcaption>
+        </figure>
+      </div>
     </div>
-    <p class="contact-note">*Email &amp; phone are placeholders — update them anytime in <code>index.html</code>.</p>
-  </div>
-</section>
+  </section>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <div class="section-inner footer-inner">
-    <span class="logo footer-logo">Hetvi<span class="logo-dot">.</span></span>
-    <p>&copy; <span id="year"></span> Hetvi. All artwork &amp; rights reserved.</p>
-    <a href="https://instagram.com/myaestheticside" target="_blank" rel="noopener">@myaestheticside</a>
+  <!-- ================= TEXTURE ART ================= -->
+  <section class="work work--wall" id="texture-art">
+    <div class="work-deco" aria-hidden="true"></div>
+    <div class="container">
+      <header class="work-head">
+        <span class="work-num" aria-hidden="true">05</span>
+        <div class="work-titles">
+          <p class="eyebrow reveal">05 — Texture Art</p>
+          <h2 class="split">Dimension <em>on the wall</em></h2>
+          <p class="section-sub reveal">Dimensional textured paintings and resin art for the walls people live, work and sip coffee in.</p>
+          <p class="custom-note reveal"><span>✦</span> Made to order for living rooms, cafés &amp; offices — resin art on request.</p>
+        </div>
+      </header>
+
+      <div class="chips reveal" data-target="texture-art">
+        <button class="chip active" data-filter="all">All <sup>9</sup></button>
+        <button class="chip" data-filter="living-room-decor">Living Room <sup>3</sup></button>
+        <button class="chip" data-filter="cafe-office-decor">Café &amp; Office <sup>3</sup></button>
+        <button class="chip" data-filter="resin-art">Resin Art <sup>3</sup></button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="gallery gallery--wall" id="gallery-texture-art">
+        <figure class="art" data-category="living-room-decor">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/living-room-decor/1.jpg" alt="Living Room Decor 1"></div>
+          <figcaption><span class="art-cat">Living Room Decor</span><span class="art-no">No. 01</span></figcaption>
+        </figure>
+        <figure class="art" data-category="living-room-decor">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/living-room-decor/2.jpg" alt="Living Room Decor 2"></div>
+          <figcaption><span class="art-cat">Living Room Decor</span><span class="art-no">No. 02</span></figcaption>
+        </figure>
+        <figure class="art" data-category="living-room-decor">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/living-room-decor/3.jpg" alt="Living Room Decor 3"></div>
+          <figcaption><span class="art-cat">Living Room Decor</span><span class="art-no">No. 03</span></figcaption>
+        </figure>
+        <figure class="art" data-category="cafe-office-decor">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/cafe-office-decor/1.jpg" alt="Café and Office 1"></div>
+          <figcaption><span class="art-cat">Café &amp; Office</span><span class="art-no">No. 04</span></figcaption>
+        </figure>
+        <figure class="art" data-category="cafe-office-decor">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/cafe-office-decor/2.jpg" alt="Café and Office 2"></div>
+          <figcaption><span class="art-cat">Café &amp; Office</span><span class="art-no">No. 05</span></figcaption>
+        </figure>
+        <figure class="art" data-category="cafe-office-decor">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/cafe-office-decor/3.jpg" alt="Café and Office 3"></div>
+          <figcaption><span class="art-cat">Café &amp; Office</span><span class="art-no">No. 06</span></figcaption>
+        </figure>
+        <figure class="art" data-category="resin-art">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/resin-art/1.jpg" alt="Resin Art 1"></div>
+          <figcaption><span class="art-cat">Resin Art</span><span class="art-no">No. 07</span></figcaption>
+        </figure>
+        <figure class="art" data-category="resin-art">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/resin-art/2.jpg" alt="Resin Art 2"></div>
+          <figcaption><span class="art-cat">Resin Art</span><span class="art-no">No. 08</span></figcaption>
+        </figure>
+        <figure class="art" data-category="resin-art">
+          <div class="art-media"><img loading="lazy" src="images/texture-art/resin-art/3.jpg" alt="Resin Art 3"></div>
+          <figcaption><span class="art-cat">Resin Art</span><span class="art-no">No. 09</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMMISSION ================= -->
+  <section class="commission" id="commission">
+    <div class="container">
+      <div class="craft-head">
+        <div>
+          <p class="eyebrow reveal">Custom commissions</p>
+          <h2 class="split">Let's design something <em>just for you</em></h2>
+        </div>
+        <p class="section-sub reveal">Every piece — from a pencil portrait to a resin wall panel — starts with your idea and ends as something made only once.</p>
+      </div>
+
+      <div class="steps" id="steps">
+        <svg class="steps-line" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 C 150 0, 250 60, 400 30 S 650 0, 750 30 S 900 60, 1000 30"/></svg>
+        <div class="step reveal" style="--i:0"><span class="step-num">01</span><h3>Share your vision</h3><p>Send a reference photo, preferred size, or simply the feeling you want the piece to hold.</p></div>
+        <div class="step reveal" style="--i:1"><span class="step-num">02</span><h3>Concept &amp; palette</h3><p>I sketch the concept and lock in size, colours and finish together with you.</p></div>
+        <div class="step reveal" style="--i:2"><span class="step-num">03</span><h3>Created by hand</h3><p>Your piece comes to life, with progress previews along the way.</p></div>
+        <div class="step reveal" style="--i:3"><span class="step-num">04</span><h3>Delivered with love</h3><p>Packed carefully and delivered — ready for its wall.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="contact" id="contact">
+    <div class="contact-blob contact-blob--1" aria-hidden="true"></div>
+    <div class="contact-blob contact-blob--2" aria-hidden="true"></div>
+    <div class="container">
+      <p class="eyebrow reveal">Get in touch</p>
+      <h2 class="contact-title split">Let's create something <em>beautiful.</em></h2>
+      <p class="contact-lede reveal">Have a face you want remembered, a wall that needs colour, or a custom idea you can't stop thinking about? I'd love to hear about it.</p>
+
+      <div class="contact-cards">
+        <!-- TODO: replace with your real email -->
+        <a class="contact-card reveal" style="--i:0" href="mailto:your.email@example.com">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">your.email@example.com</span>
+          <span class="contact-go"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <!-- TODO: replace with your real phone number -->
+        <a class="contact-card reveal" style="--i:1" href="tel:+910000000000">
+          <span class="contact-label">Phone / WhatsApp</span>
+          <span class="contact-value">+91 00000 00000</span>
+          <span class="contact-go"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="contact-card reveal" style="--i:2" href="https://instagram.com/my_aestheticside" target="_blank" rel="noopener">
+          <span class="contact-label">Instagram</span>
+          <span class="contact-value">@my_aestheticside</span>
+          <span class="contact-go"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-big" aria-hidden="true">Hetvi</div>
+    <div class="footer-inner">
+      <p>Hand-drawn, hand-painted, always personal.</p>
+      <nav class="footer-nav">
+        <a href="#home">Home</a><a href="#about">About</a><a href="#craft">Portfolio</a><a href="#commission">Commission</a><a href="#contact">Contact</a>
+      </nav>
+      <a href="https://instagram.com/my_aestheticside" target="_blank" rel="noopener" class="footer-insta"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.25.07 1.6.07 4.81s-.01 3.56-.07 4.81c-.15 3.23-1.66 4.77-4.92 4.92-1.25.06-1.6.07-4.85.07s-3.6-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.16 15.56 2.15 15.21 2.15 12s.01-3.56.07-4.81c.15-3.23 1.66-4.77 4.92-4.92C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.15 0-3.5.01-4.74.07-2.27.1-3.33 1.18-3.43 3.43C3.77 8.74 3.76 9.09 3.76 12s.01 3.26.07 4.5c.1 2.25 1.16 3.33 3.43 3.43 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c2.26-.1 3.33-1.17 3.43-3.43.06-1.24.07-1.59.07-4.5s-.01-3.26-.07-4.5c-.1-2.25-1.17-3.33-3.43-3.43C15.5 4.01 15.15 4 12 4Zm0 3.55A4.45 4.45 0 1 1 7.55 12 4.45 4.45 0 0 1 12 7.55Zm0 1.8a2.65 2.65 0 1 0 2.65 2.65A2.65 2.65 0 0 0 12 9.35Zm4.65-2a1.04 1.04 0 1 1-1.04 1.04 1.04 1.04 0 0 1 1.04-1.04Z"/></svg><span>@my_aestheticside</span></a>
+    </div>
+    <p class="footer-bottom">&copy; <span id="year">2026</span> Hetvi. All artwork &amp; rights reserved.</p>
   </div>
 </footer>
 
-<!-- ===== LIGHTBOX ===== -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
-  <img src="" alt="" id="lightboxImg">
+<!-- ================= LIGHTBOX ================= -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.8" d="m5 5 14 14M19 5 5 19"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.8" d="m15 5-7 7 7 7"/></svg>
+  </button>
+  <figure>
+    <img id="lightboxImg" src="" alt="">
+    <figcaption><span id="lightboxCaption"></span><span id="lightboxCount"></span></figcaption>
+  </figure>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
+    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.8" d="m9 5 7 7-7 7"/></svg>
+  </button>
 </div>
 
-<button class="to-top" id="toTop" aria-label="Back to top">&uarr;</button>
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,2 @@
+﻿Add photos of your artwork here named: 1.jpg, 2.jpg, 3.jpg
+Once you add a real file with the matching name, it automatically replaces the placeholder image shown on the site -- no code editing needed.

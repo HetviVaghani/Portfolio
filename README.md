@@ -1,55 +1,47 @@
 # Hetvi — Artist Portfolio Website
 
-An editorial, gallery-inspired portfolio for Hetvi's art business: an all-brown palette (cream, tan, espresso, with a single terracotta accent), a light hero built around an abstract "paint pooling" visual and a rotating seal badge, a short studio-philosophy section, and a "fan" carousel for browsing each category's work.
+A one-page portfolio for Hetvi's custom art: portrait sketches, acrylics, watercolours, god & goddess paintings and texture art. Warm ink-and-canvas palette with vermilion and saffron accents, a full-screen background video in the hero, and a different gallery style for each medium.
 
 ## How to view it
-Just double-click `index.html` (or right-click → Open with → your browser). No build step, no server needed.
+Double-click `index.html` to open it in a browser. No build step or server needed.
 
 ## Files
 - `index.html` — all page content and structure
-- `css/style.css` — colours, fonts, layout, animations, carousel styling
-- `js/script.js` — mobile menu, tabs, fan-carousels, lightbox, scroll effects
+- `css/style.css` — colours, fonts, layout, animations and responsive rules
+- `js/script.js` — preloader, scroll animations, gallery filters, drag-scroll gallery, mobile menu, lightbox
+- `images/` — artwork photos, one folder per category/sub-category
+- `videos/hero-painting.mp4` — hero background video
+
+## Replacing the placeholder content
+The images and the hero video are **placeholders** so the layout can be previewed. Replace them before the site goes live.
+
+- **Artwork photos** — each sub-category folder (for example `images/portrait-sketches/couple-portraits/`) holds `1.jpg`, `2.jpg` and `3.jpg`. Drop in your own photos with the same names and they appear automatically, with no code changes.
+  The current placeholders are public-domain and Creative Commons artworks from Wikimedia Commons. Some of those licences require credit, so don't keep them on the live site.
+- **About photo** — `images/about/1.jpg`.
+- **Hero video** — replace `videos/hero-painting.mp4` with your own studio clip, keeping the same name. It plays muted and on loop; a landscape (16:9) clip of 10–30 seconds and under ~8 MB works best. The current clip is a free placeholder from Mixkit.
+- **Email & phone** — in the Contact section of `index.html` (search for `TODO`). Update both the visible text and the `mailto:` / `tel:` links.
 
 ## Colour palette
-Defined as CSS variables at the top of `style.css` — change these once and the whole site updates. Deliberately brown-only, no blue:
-- `--espresso-900` / `--espresso-950` — deep brown, used for the hero, footer, buttons and active states
-- `--tan` / `--tan-deep` — warm highlight used for rules, active states, the rotating seal badge
-- `--rust` — the one complementary accent, used sparingly (contact icons, one ring shape)
-- `--cream` / `--paper` — warm off-white backgrounds (never pure white)
+Defined as CSS variables at the top of `css/style.css`; change them once and the whole site updates.
+- `--ink` / `--canvas` — dark ink and warm off-white backgrounds
+- `--vermilion` — main accent (buttons, highlights)
+- `--saffron` — secondary accent
+- `--gold` / `--maroon` — used only in the God & Goddess section
+- `--teal` / `--sage` / `--rose` — used only in the Watercolour section
 
-## Things to update yourself (marked clearly in the code)
+## Portfolio sections
+| Section | Sub-categories | Gallery style |
+|---|---|---|
+| Portrait Sketches | Self, Couple, Pet, Family, Bride & Groom | Pinned sketchbook photos with tape |
+| Acrylic Paintings | Self Portraits, Vector Painting, Abstract | Drag-to-scroll row of arched cards |
+| Watercolour Paintings | Landscapes, Other Paintings | Soft, morphing blob frames |
+| God & Goddess Art | God, Goddess | Temple-arch frames in maroon and gold |
+| Texture Art | Living Room, Café & Office, Resin Art | Framed gallery wall with 3D tilt |
 
-1. **Hero visual** — `index.html`, search for `hero-art-svg`. It's currently a placeholder abstract composition (layered circles) built entirely in inline SVG, not a photo. Swap that whole `<svg>` block for a real `<img>` of your work, your process, or your materials whenever you have one — the surrounding frame styling will still apply.
-2. **All gallery photos** — every `<img>` inside a `.fan-track` and the About photo currently point to placeholder images from `picsum.photos`. Replace each `src` (and matching `data-full` for the enlarged lightbox view) with photos of your actual artwork.
-3. **Instagram handle** — currently linked as `instagram.com/myaestheticside` (guessed spelling of "my aestheticside" without spaces, since Instagram handles can't contain spaces). **Please double-check this is your exact handle** and fix it in 3 places in `index.html`: navbar, contact section, footer.
-4. **Email & phone** — currently placeholders (`youremail@example.com`, `+91 00000 00000`) in the Contact section. Update both the visible text and the `mailto:` / `tel:` links.
-5. **Bio & hero text** — the paragraphs in the Hero and About sections are starter copy; rewrite them in your own words whenever you like.
-
-## Structure of the Portfolio section
-- **Portrait Sketches** — Self, Couple, Pet, Family, Bride & Groom
-- **Acrylic Paintings** — Self Portraits, Vector Painting, Abstract Paintings
-- **Watercolour Paintings** — Landscapes, Other Paintings
-- **God & Goddess Paintings** — God, Goddess *(custom size/colour/decor note included)*
-- **Texture Art** — Living Room, Café & Office, Resin Art *(custom demand note included)*
-
-## Adding images — the "fan" carousel
-Each category tab (e.g. "Portrait Sketches") shows **one** continuous carousel holding every image in that category — not a separate mini-carousel per sub-pattern. Every card is labelled with its sub-pattern name (bottom caption, always visible) and the card nearest the centre gets an extra pill tag and stands taller, exactly like the fanned/mountain layout you asked for. It sits directly on the page background (no boxed panel behind it); the prev/next arrows are the small cream circular buttons underneath, and the effect recalculates live as you scroll or drag.
-
-To add a photo, find the right `<div class="fan-track" data-track>` for that category in `index.html` and copy one of the existing cards inside it:
-```html
-<div class="fan-card" tabindex="0">
-  <img data-full="FULL_SIZE_IMAGE_URL_OR_PATH" src="THUMBNAIL_IMAGE_URL_OR_PATH" alt="Describe the piece">
-  <span class="fan-caption">Sub-pattern name</span>
-  <span class="fan-tag">Sub-pattern name</span>
-</div>
-```
-Paste it anywhere inside that track, change the `src`/`data-full`/`alt`/labels, and reload — the fan effect, arrows and lightbox all pick it up automatically with no JS changes needed. Delete a card's whole `<div class="fan-card">…</div>` block to remove a placeholder.
-
-## Optional: a dedicated page per sub-pattern
-Right now every sub-pattern lives inline in its category's carousel. If later you'd rather have (say) "Bride & Groom Portraits" open its own full page with a larger gallery, that's a reasonable next step — just say so and it can be built as separate linked pages that reuse the same header/footer/styling.
+Each section has filter buttons for its sub-categories. Clicking any artwork opens it in a full-screen lightbox.
 
 ## Hosting it for free
-Once you're happy with it, you can put it online for free with any of these (just drag-and-drop the whole folder):
+Any static host works; drag and drop the whole folder:
+- GitHub Pages (Settings → Pages → deploy from the `main` branch)
 - Netlify Drop — netlify.com/drop
 - Vercel
-- GitHub Pages

@@ -1,0 +1,5 @@
+Put your own hero background video here and name it: hero-painting.mp4
+(The current file is a free placeholder clip from Mixkit.)
+
+Tips: landscape 16:9, 1280-1920px wide, 10-30 seconds, loops nicely, under ~8 MB.
+No sound needed - it always plays muted.

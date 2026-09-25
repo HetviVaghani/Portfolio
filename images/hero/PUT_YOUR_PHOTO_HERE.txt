@@ -1,0 +1,2 @@
+The hero section now uses a background video instead of a photo.
+See the videos/ folder (videos/hero-painting.mp4).
