@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Scrollspy ---------- */
   const spyLinks = $$('.main-nav .nav-link');
-  const portfolioIds = ['craft', 'portrait-sketches', 'acrylic-paintings', 'watercolour-paintings', 'god-goddess-paintings', 'texture-art'];
+  const portfolioIds = ['craft', 'portrait-sketches', 'acrylic-paintings', 'god-goddess-paintings', 'texture-art'];
   const spy = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
