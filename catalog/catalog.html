@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hetvi — Price Catalogue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300;400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<!--
+  HOW TO UPDATE PRICES
+  1. Edit the CATALOGUE data in the <script> at the bottom of this file (prices are plain numbers in INR).
+  2. Re-generate the PDF (open this file in Chrome → Print → Save as PDF, A4, margins "None", tick "Background graphics").
+-->
+<style>
+  :root{
+    --ink:#16120f; --ink-2:#221b16; --ink-3:#2f261f;
+    --canvas:#f5efe6; --canvas-2:#ece3d5; --card:#fffaf3;
+    --muted:#6f6458; --muted-light:#a39686;
+    --line:rgba(22,18,15,.12); --line-light:rgba(245,239,230,.16);
+    --vermilion:#e0522b; --saffron:#f2a93b; --gold:#d8b25a; --maroon:#3a1512;
+    --serif:'Fraunces', 'Times New Roman', serif;
+    --sans:'Manrope', system-ui, sans-serif;
+    --hand:'Caveat', cursive;
+  }
+  @page{ size:A4; margin:0; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:#8a8278; font-family:var(--sans); color:var(--ink); font-size:9.5pt; line-height:1.55; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  @media screen{ body{ padding:24px 0; } .page{ margin:0 auto 24px; box-shadow:0 10px 40px rgba(0,0,0,.35); } }
+
+  .page{ position:relative; width:210mm; height:297mm; overflow:hidden; background:var(--canvas); padding:15mm 15mm 16mm; page-break-after:always; break-after:page; display:flex; flex-direction:column; }
+  .page:last-child{ page-break-after:auto; break-after:auto; }
+  .page.dark{ background:var(--ink); color:var(--canvas); }
+  .page.divine{ background:radial-gradient(ellipse at 50% 0%, #5a211b, var(--maroon) 55%, #220c0a); color:#f7e9d2; }
+
+  /* running header / footer */
+  .run-head{ display:flex; justify-content:space-between; align-items:center; padding-bottom:5mm; margin-bottom:7mm; border-bottom:1px solid var(--line); }
+  .dark .run-head, .divine .run-head{ border-color:var(--line-light); }
+  .logo{ font-family:var(--serif); font-style:italic; font-size:17pt; letter-spacing:-.02em; line-height:1; }
+  .logo span{ color:var(--vermilion); }
+  .run-tag{ font-size:7pt; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+  .dark .run-tag, .divine .run-tag{ color:var(--muted-light); }
+  .run-foot{ position:absolute; left:15mm; right:15mm; bottom:8mm; display:flex; justify-content:space-between; font-size:7pt; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-light); }
+  .run-foot b{ color:var(--vermilion); font-weight:600; }
+  .divine .run-foot b{ color:var(--gold); }
+
+  /* type */
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; margin:0 0 3mm; font-size:7.5pt; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--vermilion); }
+  .eyebrow::before{ content:''; width:18px; height:1.5px; background:currentColor; }
+  .divine .eyebrow{ color:var(--gold); }
+  h1,h2,h3{ font-family:var(--serif); font-weight:400; margin:0; letter-spacing:-.02em; line-height:1.05; }
+  h2{ font-size:26pt; }
+  h2 em, h1 em{ font-style:italic; font-weight:300; color:var(--vermilion); }
+  .dark h2 em{ color:var(--saffron); }
+  .divine h2 em{ color:var(--gold); }
+  .sub{ color:var(--muted); font-size:9.5pt; margin:3mm 0 0; max-width:125mm; }
+  .dark .sub{ color:var(--muted-light); }
+  .divine .sub{ color:rgba(247,233,210,.72); }
+
+  /* section header with outlined number, like the website */
+  .sec-head{ display:grid; grid-template-columns:auto 1fr; gap:7mm; align-items:start; margin-bottom:6mm; }
+  .sec-num{ font-family:var(--serif); font-style:italic; font-weight:300; font-size:58pt; line-height:.8; color:transparent; -webkit-text-stroke:1.2px var(--vermilion); }
+  .divine .sec-num{ -webkit-text-stroke-color:var(--gold); }
+  .sec-note{ display:inline-flex; gap:6px; align-items:center; margin-top:3mm; padding:1.6mm 3.5mm; border-radius:100px; font-size:8pt; background:rgba(242,169,59,.14); border:1px dashed var(--saffron); }
+  .divine .sec-note{ background:rgba(216,178,90,.12); border-color:var(--gold); }
+  .sec-note i{ font-style:normal; color:var(--vermilion); }
+  .divine .sec-note i{ color:var(--gold); }
+
+  /* product card */
+  .cards{ display:flex; flex-direction:column; gap:5mm; flex:1; }
+  .card{ display:grid; grid-template-columns:74mm 1fr; gap:7mm; padding:5mm; border-radius:5mm; background:var(--card); border:1px solid var(--line); }
+  .dark .card{ background:rgba(255,255,255,.035); border-color:var(--line-light); }
+  .divine .card{ background:rgba(0,0,0,.18); border-color:rgba(216,178,90,.45); }
+  .shots{ display:flex; gap:2.5mm; align-items:center; justify-content:center; background:var(--canvas-2); border-radius:3.5mm; padding:3mm; }
+  .dark .shots{ background:rgba(255,255,255,.05); }
+  .divine .shots{ background:rgba(0,0,0,.25); }
+  /* artwork is never cropped: each image keeps its own proportions */
+  .shots img{ display:block; width:auto; height:auto; min-width:0; max-height:var(--shot-h, 58mm); max-width:calc((100% - (var(--n) - 1) * 2.5mm) / var(--n)); border-radius:2mm; box-shadow:0 3mm 6mm -3mm rgba(0,0,0,.35); }
+  /* compact cards for pages holding three products */
+  .compact .sec-head{ margin-bottom:4mm; }
+  .compact .cards{ gap:3.5mm; }
+  .compact .card{ padding:4mm; gap:6mm; }
+  .compact .card h3{ font-size:14pt; margin:.5mm 0 1mm; }
+  .compact .card-desc{ margin-bottom:1.5mm; font-size:8pt; }
+  .compact .prices td{ padding-top:1.05mm; padding-bottom:1.05mm; }
+  .compact .sec-note, .compact .card-kicker{ display:none; }
+  .compact .sub{ margin-top:2mm; }
+  .compact .run-head{ margin-bottom:5mm; }
+  .compact .prices .size{ font-size:9.5pt; }
+  .compact .prices .price{ font-size:10.5pt; }
+  .compact .prices tr.custom td{ padding-top:1.4mm; }
+  .card-body{ display:flex; flex-direction:column; min-width:0; }
+  .card-kicker{ font-size:7pt; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--muted-light); }
+  .card h3{ font-size:17pt; margin:1mm 0 1.5mm; }
+  .card h3 em{ font-style:italic; font-weight:300; }
+  .card-desc{ margin:0 0 3mm; color:var(--muted); font-size:8.5pt; line-height:1.5; }
+  .dark .card-desc{ color:var(--muted-light); }
+  .divine .card-desc{ color:rgba(247,233,210,.7); }
+  .medium-tag{ font-family:var(--hand); font-size:13pt; color:var(--vermilion); line-height:1; }
+  .dark .medium-tag{ color:var(--saffron); }
+  .divine .medium-tag{ color:var(--gold); }
+
+  table.prices{ width:100%; border-collapse:collapse; margin-top:auto; }
+  .prices td{ padding:1.9mm 0; border-bottom:1px solid var(--line); vertical-align:baseline; }
+  .dark .prices td, .divine .prices td{ border-color:var(--line-light); }
+  .prices .size{ font-family:var(--serif); font-size:10.5pt; white-space:nowrap; padding-right:3mm; }
+  .prices .dim{ font-size:7.5pt; color:var(--muted-light); letter-spacing:.02em; width:100%; }
+  .prices .price{ font-family:var(--serif); font-size:12pt; text-align:right; white-space:nowrap; color:var(--vermilion); }
+  .dark .prices .price{ color:var(--saffron); }
+  .divine .prices .price{ color:var(--gold); }
+  .prices tr.custom td{ border-bottom:0; padding-top:2.4mm; }
+  .prices tr.custom .size{ font-style:italic; }
+  .prices tr.custom .price{ font-family:var(--sans); font-size:7.5pt; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+  .dark .prices tr.custom .price, .divine .prices tr.custom .price{ color:var(--muted-light); }
+  .card-foot{ margin-top:2mm; font-size:7.5pt; color:var(--muted); }
+  .dark .card-foot{ color:var(--muted-light); }
+  .divine .card-foot{ color:rgba(247,233,210,.65); }
+  .card-foot b{ color:var(--vermilion); font-weight:600; }
+  .divine .card-foot b{ color:var(--gold); }
+
+  /* cover */
+  .cover{ padding:0; background:var(--ink); color:var(--canvas); }
+  .cover-glow{ position:absolute; inset:0; background:radial-gradient(ellipse at 15% 100%, rgba(224,82,43,.55), transparent 55%), radial-gradient(ellipse at 100% 0%, rgba(242,169,59,.25), transparent 50%); }
+  .cover-wall{ position:absolute; top:22mm; left:0; right:0; height:150mm; display:flex; justify-content:center; align-items:center; gap:6mm; }
+  .cover-wall .pin{ background:#fff; padding:2.6mm 2.6mm 7mm; box-shadow:0 8mm 16mm -6mm rgba(0,0,0,.6); position:relative; }
+  .cover-wall .pin::before{ content:''; position:absolute; top:-3mm; left:50%; width:20mm; height:6mm; transform:translateX(-50%) rotate(-3deg); background:rgba(242,169,59,.6); }
+  .cover-wall .pin:nth-child(even)::before{ background:rgba(224,82,43,.5); transform:translateX(-50%) rotate(4deg); }
+  .cover-wall img{ display:block; width:auto; height:auto; max-height:92mm; max-width:52mm; }
+  .cover-text{ position:absolute; left:18mm; right:18mm; bottom:22mm; }
+  .cover-pill{ display:inline-flex; align-items:center; gap:7px; padding:1.8mm 4mm 1.8mm 3mm; border-radius:100px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); font-size:8pt; }
+  .cover-pill .dot{ width:6px; height:6px; border-radius:50%; background:#6ee08c; }
+  .cover-kicker{ display:flex; align-items:center; gap:10px; margin:7mm 0 2mm; font-family:var(--serif); font-style:italic; font-weight:300; font-size:14pt; color:rgba(245,239,230,.85); }
+  .cover-kicker i{ width:26px; height:1px; background:var(--saffron); }
+  .cover h1{ font-size:54pt; font-weight:300; line-height:.98; }
+  .cover h1 em{ color:var(--saffron); }
+  .cover-foot{ display:flex; gap:7mm; margin-top:9mm; padding-top:5mm; border-top:1px solid var(--line-light); font-size:7.5pt; letter-spacing:.2em; text-transform:uppercase; color:rgba(245,239,230,.7); }
+  .cover-foot span::before{ content:'✦'; color:var(--saffron); margin-right:6px; }
+
+  /* intro page */
+  .intro-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8mm; margin-top:7mm; }
+  .panel{ padding:6mm; border-radius:5mm; background:var(--card); border:1px solid var(--line); }
+  .panel h3{ font-size:14pt; margin-bottom:3mm; }
+  .panel p, .panel li{ color:var(--muted); font-size:8.5pt; }
+  .panel ul{ margin:0; padding-left:4mm; }
+  .panel li{ margin-bottom:1.4mm; }
+  table.guide{ width:100%; border-collapse:collapse; font-size:8.3pt; }
+  .guide th{ text-align:left; font-size:6.8pt; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-light); padding:0 0 2mm; }
+  .guide td{ padding:1.6mm 0; border-top:1px solid var(--line); color:var(--muted); }
+  .guide td:first-child{ font-family:var(--serif); color:var(--ink); font-size:9.5pt; }
+  .toc{ margin-top:8mm; }
+  .toc-row{ display:grid; grid-template-columns:14mm 1fr auto; align-items:baseline; gap:4mm; padding:4mm 0; border-bottom:1px solid var(--line); }
+  .toc-row:first-child{ border-top:1px solid var(--line); }
+  .toc-num{ font-family:var(--serif); color:var(--vermilion); font-size:11pt; }
+  .toc-name{ font-family:var(--serif); font-size:17pt; letter-spacing:-.02em; }
+  .toc-name small{ display:block; font-family:var(--sans); font-size:7.5pt; letter-spacing:.06em; color:var(--vermilion); margin-top:1mm; }
+  .toc-from{ font-size:8pt; color:var(--muted); text-align:right; }
+  .toc-from b{ display:block; font-family:var(--serif); font-weight:400; font-size:12pt; color:var(--ink); }
+
+  /* ordering page */
+  .steps{ display:grid; grid-template-columns:1fr 1fr; gap:5mm; margin-top:7mm; }
+  .step{ padding:6mm; border-radius:5mm; border:1px solid var(--line-light); background:rgba(255,255,255,.035); }
+  .step-num{ display:grid; place-items:center; width:10mm; height:10mm; border-radius:50%; margin-bottom:4mm; font-family:var(--serif); font-style:italic; font-size:11pt; background:var(--vermilion); color:#fff; }
+  .step h3{ font-size:13pt; margin-bottom:1.5mm; }
+  .step p{ margin:0; font-size:8.5pt; color:var(--muted-light); }
+  .terms{ margin-top:8mm; display:grid; grid-template-columns:1fr 1fr; gap:2mm 8mm; }
+  .terms div{ display:flex; gap:3mm; font-size:8.5pt; color:rgba(245,239,230,.82); padding:2mm 0; border-bottom:1px solid var(--line-light); }
+  .terms div::before{ content:'✦'; color:var(--saffron); }
+  .contact-row{ display:grid; grid-template-columns:1fr 1fr; gap:5mm; margin-top:auto; }
+  .contact-card{ padding:5mm 6mm; border-radius:5mm; border:1px solid var(--line-light); }
+  .contact-label{ font-size:7pt; letter-spacing:.2em; text-transform:uppercase; color:var(--saffron); }
+  .contact-value{ font-family:var(--serif); font-size:13pt; margin-top:1mm; }
+  .sign{ font-family:var(--hand); font-size:20pt; color:var(--saffron); margin:7mm 0 5mm; }
+</style>
+</head>
+<body>
+<div id="book"></div>
+
+<script>
+/* =====================================================================
+   CATALOGUE DATA — edit prices here (numbers in INR). Rows render in order;
+   every sub-category automatically ends with "Custom size — price on request".
+   ===================================================================== */
+const CONTACT = { instagram: '@its_heyytvii', website: 'hetvivaghani.github.io/Portfolio' };
+const YEAR = 2026;
+
+const PAPER = { A4: '21 × 29.7 cm · 8.3 × 11.7 in', A3: '29.7 × 42 cm · 11.7 × 16.5 in', A2: '42 × 59.4 cm · 16.5 × 23.4 in', A1: '59.4 × 84.1 cm · 23.4 × 33.1 in' };
+const cm = (w, h) => `${Math.round(w * 2.54)} × ${Math.round(h * 2.54)} cm`;
+const canvas = (w, h) => ({ size: `${w} × ${h} in`, dim: `${cm(w, h)} · canvas` });
+const paper = (s) => ({ size: s, dim: PAPER[s] });
+
+const CATALOGUE = [
+  {
+    num: '01', id: 'portrait-sketches', tone: 'light',
+    eyebrow: 'Portrait Sketches', title: 'Faces, <em>remembered</em>',
+    sub: 'Graphite and charcoal portraits built layer by layer — made to hold on to expression, not just likeness. Drawn from your reference photo.',
+    note: 'Prices are for the drawing on premium sketch paper, unframed.',
+    items: [
+      { name: 'Self <em>Portrait</em>', kicker: 'One person', medium: 'graphite & charcoal', dir: 'portrait-sketches/personal-self-portraits', imgs: [1, 2, 4],
+        desc: 'A single-person portrait — for yourself, a loved one, or a meaningful gift.',
+        rows: [[paper('A4'), 1499], [paper('A3'), 2499], [paper('A2'), 4499]] },
+      { name: 'Couple <em>Portrait</em>', kicker: 'Two people', medium: 'graphite & charcoal', dir: 'portrait-sketches/couple-portraits', imgs: [1, 3],
+        desc: 'Two faces, one frame — anniversaries, engagements and “just because”.',
+        rows: [[paper('A4'), 2199], [paper('A3'), 3499], [paper('A2'), 5999]] },
+      { name: 'Family <em>Portrait</em>', kicker: 'Up to 4 people', medium: 'graphite & charcoal', dir: 'portrait-sketches/family-portraits', imgs: [1],
+        desc: 'The whole family together, drawn from one photo or combined from several.',
+        rows: [[paper('A3'), 4499], [paper('A2'), 6999], [paper('A1'), 10999]],
+        foot: '<b>+ ₹600</b> per additional person beyond four.' },
+      { name: 'Bride &amp; <em>Groom</em>', kicker: 'Wedding portrait', medium: 'graphite & charcoal', dir: 'portrait-sketches/bride-groom-portraits', imgs: [1],
+        desc: 'A detailed wedding portrait with jewellery, attire and décor rendered by hand.',
+        rows: [[paper('A3'), 3999], [paper('A2'), 6499], [paper('A1'), 9999]] },
+    ],
+  },
+  {
+    num: '02', id: 'acrylic-paintings', tone: 'dark',
+    eyebrow: 'Acrylic Paintings', title: 'Bold strokes, <em>honest colour</em>',
+    sub: 'Textured, confident acrylic work on stretched canvas — from lifelike portraits to vector-inspired and abstract pieces.',
+    note: 'Prices are for acrylic on stretched canvas, unframed.',
+    items: [
+      { name: 'Self <em>Portrait</em>', kicker: 'Acrylic portrait', medium: 'acrylic on canvas', dir: 'acrylic-paintings/self-portraits', imgs: [1, 2],
+        desc: 'A full-colour painted portrait with skin tones, light and texture built up in layers.',
+        rows: [[canvas(8, 10), 2999], [canvas(12, 16), 4999], [canvas(16, 20), 7499], [canvas(20, 24), 9999]] },
+      { name: 'Vector <em>Painting</em>', kicker: 'Stylised', medium: 'acrylic on canvas', dir: 'acrylic-paintings/vector-painting', imgs: [1],
+        desc: 'Clean shapes and flat colour blocks — a modern, graphic take on a person or scene.',
+        rows: [[canvas(8, 10), 1999], [canvas(12, 16), 3499], [canvas(16, 20), 5499], [canvas(20, 24), 7499]] },
+      { name: 'Abstract <em>Painting</em>', kicker: 'Original', medium: 'acrylic on canvas', dir: 'acrylic-paintings/abstract-paintings', imgs: [1, 2],
+        desc: 'Colour, movement and pattern — painted to suit your space and palette.',
+        rows: [[canvas(12, 16), 2999], [canvas(16, 20), 4499], [canvas(20, 24), 6499], [canvas(24, 36), 9999]] },
+    ],
+  },
+  {
+    num: '03', id: 'god-goddess-paintings', tone: 'divine',
+    eyebrow: 'God & Goddess Art', title: 'Devotion, <em>painted</em>',
+    sub: 'Acrylic devotional art finished with intention — every size, palette and decorative detail made to order.',
+    note: 'Stone, kundan or gold-leaf embellishment quoted separately.',
+    items: [
+      { name: 'God <em>Paintings</em>', kicker: 'Devotional', medium: 'acrylic on canvas', dir: 'god-goddess-paintings/god-paintings', imgs: [1, 2, 3],
+        desc: 'Krishna, Shiva, Shrinathji and more — traditional or contemporary style.',
+        rows: [[canvas(12, 16), 3999], [canvas(16, 20), 5999], [canvas(20, 24), 8499], [canvas(24, 36), 12999]] },
+      { name: 'Goddess <em>Paintings</em>', kicker: 'Devotional', medium: 'acrylic on canvas', dir: 'god-goddess-paintings/goddess-paintings', imgs: [3, 1, 2],
+        desc: 'Radha, Lakshmi, Durga and more — with the colours and finish you choose.',
+        rows: [[canvas(12, 16), 3999], [canvas(16, 20), 5999], [canvas(20, 24), 8499], [canvas(24, 36), 12999]] },
+    ],
+  },
+  {
+    num: '04', id: 'texture-art', tone: 'light',
+    eyebrow: 'Texture Art', title: 'Dimension <em>on the wall</em>',
+    sub: 'Dimensional, sculpted texture paintings for the walls people live, work and sip coffee in.',
+    note: 'Made to order in your colours — ideal for statement walls.',
+    items: [
+      { name: 'Living Room <em>Decor</em>', kicker: 'Home', medium: 'texture on canvas', dir: 'texture-art/living-room-decor', imgs: [1, 3, 4],
+        desc: 'Textured statement pieces — single canvases or sets — matched to your interiors.',
+        rows: [[canvas(12, 16), 3499], [canvas(18, 24), 5999], [canvas(24, 36), 9999], [canvas(36, 48), 16999]] },
+      { name: 'Café &amp; <em>Office</em>', kicker: 'Commercial', medium: 'texture on canvas', dir: 'texture-art/cafe-office-decor', imgs: [1, 2, 4],
+        desc: 'Large-format and multi-panel artwork for cafés, studios, lobbies and offices.',
+        rows: [[canvas(24, 36), 10999], [canvas(36, 48), 17999], [canvas(48, 60), 27999], [{ size: 'Set of 3', dim: '3 × (12 × 36 in) · 30 × 91 cm each' }, 19999]],
+        foot: '<b>Bulk & project orders</b> for multiple walls quoted on request.' },
+    ],
+  },
+];
+
+/* ===================================================================== */
+const inr = (n) => '₹' + n.toLocaleString('en-IN');
+const book = document.getElementById('book');
+let pageNo = 0;
+const TAG = `Price Catalogue ${YEAR}`;
+
+function page(cls, inner, { head = true } = {}) {
+  pageNo++;
+  const el = document.createElement('section');
+  el.className = 'page ' + cls;
+  el.innerHTML = (head ? `<div class="run-head"><span class="logo">Hetvi<span>.</span></span><span class="run-tag">${TAG}</span></div>` : '') + inner +
+    (head ? `<div class="run-foot"><span>${CONTACT.instagram} · ${CONTACT.website}</span><span><b>${String(pageNo).padStart(2, '0')}</b></span></div>` : '');
+  book.appendChild(el);
+}
+
+function card(it, shotH) {
+  const imgs = it.imgs.map((n) => `<img src="../images/${it.dir}/${n}.jpg" alt="">`).join('');
+  const rows = it.rows.map(([s, p]) => `<tr><td class="size">${s.size}</td><td class="dim">${s.dim}</td><td class="price">${inr(p)}</td></tr>`).join('');
+  return `<article class="card">
+    <div class="shots" style="--shot-h:${shotH}mm; --n:${it.imgs.length}">${imgs}</div>
+    <div class="card-body">
+      <span class="card-kicker">${it.kicker}</span>
+      <h3>${it.name}</h3>
+      <p class="card-desc">${it.desc} <span class="medium-tag">${it.medium}</span></p>
+      <table class="prices">${rows}<tr class="custom"><td class="size">Custom size</td><td class="dim">any size you need</td><td class="price">Price on request</td></tr></table>
+      ${it.foot ? `<div class="card-foot">${it.foot}</div>` : ''}
+    </div>
+  </article>`;
+}
+
+function secHead(sec, cont) {
+  return `<div class="sec-head"><span class="sec-num">${sec.num}</span><div>
+    <p class="eyebrow">${sec.num} — ${sec.eyebrow}${cont ? ' (continued)' : ''}</p>
+    <h2>${sec.title}</h2>
+    ${cont ? '' : `<p class="sub">${sec.sub}</p><span class="sec-note"><i>✦</i> ${sec.note}</span>`}
+  </div></div>`;
+}
+
+/* ---------- 1. Cover ---------- */
+page('cover', `
+  <div class="cover-glow"></div>
+  <div class="cover-wall">
+    <div class="pin" style="transform:rotate(-4deg) translateY(6mm)"><img src="../images/portrait-sketches/personal-self-portraits/1.jpg" alt=""></div>
+    <div class="pin" style="transform:rotate(2deg)"><img src="../images/god-goddess-paintings/god-paintings/2.jpg" alt=""></div>
+    <div class="pin" style="transform:rotate(-1.5deg) translateY(-4mm)"><img src="../images/acrylic-paintings/self-portraits/1.jpg" alt=""></div>
+    <div class="pin" style="transform:rotate(3.5deg) translateY(8mm)"><img src="../images/texture-art/living-room-decor/3.jpg" alt=""></div>
+  </div>
+  <div class="cover-text">
+    <span class="cover-pill"><span class="dot"></span>Commissions open · Custom art, made by hand</span>
+    <p class="cover-kicker">Hetvi <i></i> visual artist</p>
+    <h1>Price <em>Catalogue</em><br>${YEAR}</h1>
+    <div class="cover-foot"><span>Portrait Sketches</span><span>Acrylics</span><span>Divine Art</span><span>Texture Art</span></div>
+  </div>`, { head: false });
+
+/* ---------- 2. Welcome / contents / size guide ---------- */
+const minPrice = (sec) => Math.min(...sec.items.flatMap((i) => i.rows.map((r) => r[1])));
+// section start pages: cover=1, intro=2, then sections (portrait sketches spans 2 pages)
+const startPages = { 'portrait-sketches': 3, 'acrylic-paintings': 5, 'god-goddess-paintings': 6, 'texture-art': 7 };
+page('', `
+  <p class="eyebrow">Welcome</p>
+  <h2>Art made <em>just for you</em></h2>
+  <p class="sub">Every piece in this catalogue is hand-drawn or hand-painted to order — from your photo, your idea, or simply the feeling you want it to hold. Prices below are starting prices in Indian Rupees for each size; any size not listed can be made on request.</p>
+  <div class="toc">
+    ${CATALOGUE.map((s) => `<div class="toc-row"><span class="toc-num">${s.num}</span>
+      <span class="toc-name">${s.eyebrow.replace('&', '&amp;')}<small>${s.items.map((i) => i.name.replace(/<\/?em>/g, '')).join(' · ')}</small></span>
+      <span class="toc-from">from<b>${inr(minPrice(s))}</b>page ${String(startPages[s.id]).padStart(2, '0')}</span></div>`).join('')}
+  </div>
+  <div class="intro-grid">
+    <div class="panel"><h3>Size guide</h3>
+      <table class="guide"><tr><th>Paper</th><th>Size</th></tr>
+        ${Object.entries(PAPER).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
+      </table>
+      <p style="margin:3mm 0 0">Canvas sizes are listed in inches (width × height) with the centimetre size alongside.</p>
+    </div>
+    <div class="panel"><h3>Good to know</h3><ul>
+      <li>All prices are in <b>INR</b> and are for the artwork only — unframed.</li>
+      <li><b>Custom sizes</b> are always available; the price is confirmed after we talk through your idea.</li>
+      <li>Framing, embellishments and extra people are quoted as add-ons.</li>
+      <li>Shipping is charged separately at actual cost.</li>
+    </ul></div>
+  </div>`);
+
+/* ---------- 3+. Sections ---------- */
+CATALOGUE.forEach((sec) => {
+  const tone = sec.tone === 'light' ? '' : sec.tone;
+  const perPage = sec.items.length > 3 ? 2 : sec.items.length;
+  const shotH = perPage >= 3 ? 44 : 76;
+  for (let i = 0; i < sec.items.length; i += perPage) {
+    const chunk = sec.items.slice(i, i + perPage);
+    page(tone + (perPage >= 3 ? ' compact' : ''), secHead(sec, i > 0) + `<div class="cards">${chunk.map((it) => card(it, shotH)).join('')}</div>`);
+  }
+});
+
+/* ---------- Last. How to order ---------- */
+page('dark', `
+  <p class="eyebrow">How to order</p>
+  <h2>Let's create something <em>beautiful.</em></h2>
+  <p class="sub">Ordering a commission is simple — here's how it works from first message to delivery.</p>
+  <div class="steps">
+    <div class="step"><span class="step-num">01</span><h3>Share your vision</h3><p>Send a reference photo, the category and size you like, or simply the feeling you want the piece to hold.</p></div>
+    <div class="step"><span class="step-num">02</span><h3>Concept &amp; palette</h3><p>We lock in size, colours and finish together, and you receive a final quote.</p></div>
+    <div class="step"><span class="step-num">03</span><h3>Created by hand</h3><p>Your piece comes to life, with progress previews along the way.</p></div>
+    <div class="step"><span class="step-num">04</span><h3>Delivered with love</h3><p>Packed carefully and delivered — ready for its wall.</p></div>
+  </div>
+  <div class="terms">
+    <div>An advance confirms your order; the balance is due before dispatch.</div>
+    <div>Timelines depend on size and detail — confirmed when you order.</div>
+    <div>Colours may vary slightly from reference photos and screens.</div>
+    <div>Custom sizes and bulk orders are quoted individually.</div>
+  </div>
+  <p class="sign">Hand-drawn, hand-painted, always personal.</p>
+  <div class="contact-row">
+    <div class="contact-card"><div class="contact-label">Instagram</div><div class="contact-value">${CONTACT.instagram}</div></div>
+    <div class="contact-card"><div class="contact-label">Portfolio</div><div class="contact-value">${CONTACT.website}</div></div>
+  </div>`);
+</script>
+</body>
+</html>
